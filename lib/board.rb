@@ -1,80 +1,89 @@
 require 'pry'
+
 class Board
-  attr_accessor
+  attr_accessor :cells
+  @cells = []
+# instance var @cells stores state of board in an array.
 
-  cells = Array.new(9," ")
-
-# has a property, `cells`, that stores the data of the state of the board in an array.
-# #reset! method can reset the state of the cells to a pre-game empty board
-
-When a board is initialized, it should start with cells for a new game of Tic-tac-toe. You can and should use `#reset!`.
-  def initialized
-
+# When a board is initialized, it should start with cells
+# for a new game of Tic-tac-toe. You can and should use `#reset!`.
+  def initialize
+    self.reset!
   end
 
-# #display:  board can print current state
-def display( ???board)
-  puts " #{board[0]} | #{board[1]} | #{board[2]} "
-  puts "-----------"
-  puts " #{board[3]} | #{board[4]} | #{board[5]} "
-  puts "-----------"
-  puts " #{board[6]} | #{board[7]} | #{board[8]} "
-end
-
-# Define your WIN_COMBINATIONS constant
-WIN_COMBINATIONS = [
-  [0,1,2],  # Top row
-  [3,4,5],  # Middle row
-  [6,7,8],  # Bottom row
-  [0,3,6],  # Left column
-  [1,4,7],  # middle column
-  [2,5,8],  # right column
-  [0,4,8],  # left diagnonal
-  [2,4,6]   # right diagonal
-]
-
-
+# #reset! method can reset the state of the cells to a pre-game empty board
+  def reset!
+    self.cells = Array.new(9," ")
+  end
 
 # #position method takes user's input as 1-9 strings like "2" or "9"
 # looks up value of cells at correct index from ***array's perspective***
 # All other methods will take input in ***user's perspective*** of 1-9 strings
 # and use #position to look up the value according to the cells' array index.
-
-Similarly, you're going to build an `#update` method that represents updating the board when a player makes a move. This method will take two arguments, the first will be the position the user wants to occupy in the form of 1-9 strings that you will need to convert to the board cells' array index, along with the player object making the move. When you update the appropriate index in the cells, you will set it equal to the token of the player object by calling the `#token` method on the player.
-
-Finally, a board can return values based on its state such as `#full?` when entirely occupied with "X" and "O"s and a `#turn_count` based on how many positions in the cells array are filled. `#taken?` will return true or false for an individual position. `#valid_move?` will ensure that moves are between 1-9 and not taken.
-
-
-
-]
-def input_to_index(input) # convert user input 1-9 to integer 0-8
-  input.to_i - 1
+def position(input) # convert user input 1-9 to array index
+  self.cells[input.to_i - 1]
 end
 
-# inserts player's move, a board array index number,
-# to X or O token string character
-def player_move(board, index, token)
-   board[index] = token
+
+# #display:  board can print current state
+def display
+  c = self.cells
+  puts " #{c[0]} | #{c[1]} | #{c[2]} "
+  puts "-----------"
+  puts " #{c[3]} | #{c[4]} | #{c[5]} "
+  puts "-----------"
+  puts " #{c[6]} | #{c[7]} | #{c[8]} "
 end
 
-# checks if player's move position in board array is already occupied
-def position_taken? (board, index)
-  index = index.to_i
-  board[index] != " " && board[index] != nil
+## Define your WIN_COMBINATIONS constant
+#WIN_COMBINATIONS = [
+#  [0,1,2],  # Top row
+#  [3,4,5],  # Middle row
+#  [6,7,8],  # Bottom row
+#  [0,3,6],  # Left column
+#  [1,4,7],  # middle column
+#  [2,5,8],  # right column
+#  [0,4,8],  # left diagnonal
+#  [2,4,6]   # right diagonal
+#]
+
+def update(input, player) # need Player class object coded
+  #self.cells << self.position
+end
+# build #update method represents updating board when player makes a move.
+# #update has two arguments,
+# first is position the user wants to occupy in the form of 1-9 strings
+# that you will need to convert to the board cells' array index,
+# along with the player object making the move.
+# When you update the cell's index, set it equal to token of player object
+# by calling the`#token method on the player.
+
+
+
+# Finally, a board can return values based on its state
+
+# #turn_count based on how many positions in cells array are filled.
+
+
+# #taken?
+# true if individual position is occupied
+# false if not occupied
+def taken?(input)
+  self.cells[self.position(input)] == "X"
 end
 
-# move is valid if: player enters index within 9-cell board array and
-# that cell not already occupied
-def valid_move?(board, index)
-   if index.between?(0,8) && !position_taken?(board,index)
+# #valid_move? will ensure that moves are between 1-9 and not taken.
+def valid_move?
+    && !taken?(board,index)
      true
    end
 end
 
-def turn_count(board)
+# #turn_count based on how many positions in cells array are filled.
+def turn_count
   count = 0
-  board.each do |move|
-    if move == "X" || move == "O"
+  self.cells.each do |cell|
+    if cell == "X" || cell == "O"
     count += 1
     end
   end
@@ -116,8 +125,10 @@ def won?(board)
   end
 end
 
-def full?(board)
-  board.all? do |cell|
+# #full? returns truthy when board cells entirely
+# occupied with "X" and "O" token strings
+def full?
+  self.cells.all? do |cell|
     cell == "X" || cell == "O"
   end
 end
@@ -139,30 +150,6 @@ def winner(board)
   elsif won?(board) == nil
     # puts "Please continue playing"
      nil
-  end
-end
-
-=begin
-until the game is over
-  take turns
-end
-if the game was won
-  congratulate the winner
-else if the game was a draw
-  tell the players it has been a draw
-end
-=end
-
-
-def play(board)
-  while !over?(board)
-    turn(board)
-  end
-
-  if draw?(board)
-      puts "Cat's Game!"
-  elsif won?(board)
-      puts "Congratulations #{winner(board)}!"
   end
 end
 
