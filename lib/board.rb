@@ -27,12 +27,24 @@ class Board
 
 # #taken?
 # true if individual position is occupied false if not
+<<<<<<< HEAD
   def taken?(input)
     self.cells[input.to_i - 1] != " "
   end
 
   def update(input, player)  # need Player class object coded
     self.cells[input.to_i - 1] = player.token if !self.taken?(input)
+=======
+###  ??? DRAFT return value not
+  def taken?(input)
+    self.position(input) != " "
+  end
+
+  def update(input, player)  # need Player class object coded
+binding.pry
+    self.cells[self.position(input)] << player.token if !self.taken?(input)
+binding.pry
+>>>>>>> 9736d1d1c22b2c319167c95ab1297f377010fbdc
   end
 # build #update method represents updating board when player makes a move.
 # #update has two arguments,
