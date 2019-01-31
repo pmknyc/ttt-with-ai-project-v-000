@@ -1,13 +1,27 @@
 require 'pry'
+
 class Game
 
-def display_board(board)
-  puts " #{board[0]} | #{board[1]} | #{board[2]} "
-  puts "-----------"
-  puts " #{board[3]} | #{board[4]} | #{board[5]} "
-  puts "-----------"
-  puts " #{board[6]} | #{board[7]} | #{board[8]} "
-end
+  attr_reader :player_1, :player_2; :board
+
+  def initialize(player_1, player_2, board)
+    self.player_1("X")
+    self.player_2("O")
+    self.board
+  end
+
+  def board
+    game.board = []
+  end
+
+  def player_1(token)
+    player_1 = Player.new(token)
+  end
+
+  def player_2(token)
+    player_2 = Player.new(token)
+  end
+
 
 # Define your WIN_COMBINATIONS constant
 WIN_COMBINATIONS = [
@@ -20,6 +34,8 @@ WIN_COMBINATIONS = [
   [0,4,8],  # left diagnonal
   [2,4,6]   # right diagonal
 ]
+
+
 def input_to_index(input) # convert user input 1-9 to integer 0-8
   input.to_i - 1
 end
