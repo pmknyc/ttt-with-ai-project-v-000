@@ -1,27 +1,27 @@
+
 require 'pry'
-
 class Game
+  attr_accessor :player_1, :player_2, :board
 
-  attr_reader :player_1, :player_2; :board
+  #attr_reader
 
-  def initialize(player_1, player_2, board)
-    self.player_1("X")
-    self.player_2("O")
-    self.board
+  def initialize
+    @player_1 = Player.new("X")
+    @player_2
+    @board = []
   end
 
   def board
-    game.board = []
+    @board
   end
 
-  def player_1(token)
-    player_1 = Player.new(token)
+  def player_1
+    @player_1
   end
 
-  def player_2(token)
-    player_2 = Player.new(token)
+  def player_2
+    @player_2
   end
-
 
 # Define your WIN_COMBINATIONS constant
 WIN_COMBINATIONS = [
@@ -36,45 +36,12 @@ WIN_COMBINATIONS = [
 ]
 
 
-def input_to_index(input) # convert user input 1-9 to integer 0-8
-  input.to_i - 1
-end
-
 # inserts player's move, a board array index number,
 # to X or O token string character
 def player_move(board, index, token)
    board[index] = token
 end
 
-# checks if player's move position in board array is already occupied
-def position_taken? (board, index)
-  index = index.to_i
-  board[index] != " " && board[index] != nil
-end
-
-# move is valid if: player enters index within 9-cell board array and
-# that cell not already occupied
-def valid_move?(board, index)
-   if index.between?(0,8) && !position_taken?(board,index)
-     true
-   end
-end
-
-def turn_count(board)
-  count = 0
-  board.each do |move|
-    if move == "X" || move == "O"
-    count += 1
-    end
-  end
-  count
-end
-
-def current_player(board)
-  turn_count(board) % 2 == 0 ? "X" : "O"
-  # puts "Player #{current_player}'s turn"
-  # return current_player
-end
 
 #def current_player(board)
 #  if turn_count(board) % 2 == 0
@@ -130,18 +97,6 @@ def winner(board)
      nil
   end
 end
-
-=begin
-until the game is over
-  take turns
-end
-if the game was won
-  congratulate the winner
-else if the game was a draw
-  tell the players it has been a draw
-end
-=end
-
 
   def play(board)
     while !over?(board)

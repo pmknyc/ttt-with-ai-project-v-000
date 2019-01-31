@@ -1,4 +1,5 @@
 require 'pry'
+
 class Board
   attr_accessor :cells
   @cells = []
@@ -32,9 +33,6 @@ class Board
 
   def update(input, player)  # need Player class object coded
     self.cells[input.to_i - 1] = player.token if !self.taken?(input)
-
-  def update(input, player)  # need Player class object coded
-    self.cells[self.position(input)] << player.token if !self.taken?(input)
   end
 
 # build #update method represents updating board when player makes a move.
