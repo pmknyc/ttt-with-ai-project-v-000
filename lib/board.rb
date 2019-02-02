@@ -34,7 +34,6 @@ class Board
   def update(input, player)  # need Player class object coded
     self.cells[input.to_i - 1] = player.token if !self.taken?(input)
   end
-
 # build #update method represents updating board when player makes a move.
 # #update has two arguments,
 # first is position the user wants to occupy in the form of 1-9 strings
@@ -55,7 +54,7 @@ class Board
   def turn_count
     count = 0
     self.cells.each do |cell|
-      count += 1 if cell == "X" || cell == "O"
+      count += 1 if cell != " "    #== "X" || cell == "O"
     end
     count
   end

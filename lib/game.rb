@@ -1,16 +1,15 @@
-
 require 'pry'
+
 class Game
   attr_accessor :player_1, :player_2, :board
 
-  #attr_reader
-
-  def initialize
-    @player_1 = Player.new("X")
-    @player_2
-    @board = []
+  def initialize(player_1 = Players::Human.new("X"), player_2 = Players::Human.new("O"), board = Board.new)
+    @player_1 = player_1
+    @player_2 = player_2
+    @board = board
   end
 
+# ??? do I need these reader methods
   def board
     @board
   end
@@ -35,22 +34,19 @@ WIN_COMBINATIONS = [
   [2,4,6]   # right diagonal
 ]
 
-
 # inserts player's move, a board array index number,
 # to X or O token string character
 def player_move(board, index, token)
    board[index] = token
 end
 
-
-#def current_player(board)
-#  if turn_count(board) % 2 == 0
-#    current_player = "X"
-#    else current_player = "O"
-#    end
-#   puts "Player #{current_player}'s turn"
-#   return current_player
-#end
+def current_player
+  if   board.turn_count % 2 == 0
+       current_player = "X"
+  else current_player = "O"
+  end
+  current_player
+end
 
 def turn(board)
   puts "Please enter 1-9:"
@@ -64,30 +60,24 @@ def turn(board)
     end
 end
 
-def won?(board)
+def won?
   WIN_COMBINATIONS.detect do |combo|
-    board[combo[0]] == board[combo[1]] &&
-    board[combo[1]] == board[combo[2]] &&
-    position_taken?(board,combo[0])
+    board.cells[combo[0]] == board.cells[combo[1]] &&
+    board.cells[combo[1]] == board.cells[combo[2]] &&
+    board.taken?(board.cells[combo[0]])
   end
 end
 
-def full?(board)
-  board.all? do |cell|
-    cell == "X" || cell == "O"
-  end
+def draw?
+  board.full? && !self.won?
 end
 
-def draw?(board)
-  full?(board) && !won?(board)
+def over?
+  self.won? || self.draw? ? true : false
 end
 
-def over?(board)
-  won?(board) || draw?(board) ? true : false
-end
-
-def winner(board)
-  if won?(board)
+def winner
+  if self.won?
     token = won?(board)[0]
     winner = board[token]
     # puts "Congratulations! The winner is player #{winner}"
