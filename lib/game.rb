@@ -2,6 +2,7 @@ require 'pry'
 
 class Game
   attr_accessor :player_1, :player_2, :board
+  attr_reader :token
 
   def initialize(player_1 = Players::Human.new("X"), player_2 = Players::Human.new("O"), board = Board.new)
     @player_1 = player_1
@@ -22,7 +23,7 @@ class Game
     @player_2
   end
 
-# Define your WIN_COMBINATIONS constant
+  # Define your WIN_COMBINATIONS constant
 WIN_COMBINATIONS = [
   [0,1,2],  # Top row
   [3,4,5],  # Middle row
@@ -34,16 +35,17 @@ WIN_COMBINATIONS = [
   [2,4,6]   # right diagonal
 ]
 
-# inserts player's move, a board array index number,
-# to X or O token string character
-def player_move(board, index, token)
-   board[index] = token
-end
+    ## inserts player's move, a board array index number,
+    ## to X or O token string character
+    #def player_move(board, index, token)
+    #   board[index] = token
+    #end
 
 def current_player
-  if   board.turn_count % 2 == 0
-       current_player = "X"
-  else current_player = "O"
+  if    board.turn_count % 2 == 0
+        current_player = self.player_1
+  else
+        current_player = self.player_2
   end
   current_player
 end
