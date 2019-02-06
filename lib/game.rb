@@ -50,23 +50,28 @@ def current_player
   current_player
 end
 
-def turn(board)
-  puts "Please enter 1-9:"
-  input = gets.strip
-  index = input_to_index(input)
-    if valid_move?(board,index)
-        player_move(board,index,current_player(board))
-        display_board(board)
-    else
-        turn(board)
-    end
-end
+    #def turn(board)
+    #  puts "Please enter 1-9:"
+    #  input = gets.strip
+    #  index = input_to_index(input)
+    #    if valid_move?(board,index)
+    #        player_move(board,index,current_player(board))
+    #        display_board(board)
+    #    else
+    #        turn(board)
+    #    end
+    #end
 
 def won?
-  WIN_COMBINATIONS.detect do |combo|
-    board.cells[combo[0]] == board.cells[combo[1]] &&
+  if
+    WIN_COMBINATIONS.detect do |combo|
+    (board.cells[combo[0]] == board.cells[combo[1]] &&
     board.cells[combo[1]] == board.cells[combo[2]] &&
-    board.taken?(board.cells[combo[0]])
+    board.taken?(board.cells[combo[0]])) != nil
+    combo.to_s
+    end
+  elsif board.full?
+    false
   end
 end
 
@@ -79,12 +84,11 @@ def over?
 end
 
 def winner
-  if self.won?
-    token = won?(board)[0]
-    winner = board[token]
+  if self.won? != false
+    winner = self.won?.to_a[0]
     # puts "Congratulations! The winner is player #{winner}"
-    winner
-  elsif won?(board) == nil
+    # winner
+  else
     # puts "Please continue playing"
      nil
   end
