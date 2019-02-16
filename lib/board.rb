@@ -28,11 +28,11 @@ class Board
 # #taken?
 # true if individual position is occupied false if not
   def taken?(input)
-    self.cells[input.to_i - 1] != " "
+    self.position(input) != " "
   end
 
-  def update(input, player)  # need Player class object coded
-    self.cells[input.to_i - 1] = player.token if !self.taken?(input)
+  def update(input, player)  # Player class object
+    self.position(input) = player.token
   end
 # build #update method represents updating board when player makes a move.
 # #update has two arguments,
@@ -46,7 +46,7 @@ class Board
 
 # #valid_move? will ensure that moves are between 1-9 and not taken.
   def valid_move?(input)
-      input.to_i.between?(1,9) && !taken?(input)
+      self.position(input).between?(1..9) && !self.taken?(input)
   end
 
 # #turn_count returns how many positions in cells array are filled
@@ -54,7 +54,7 @@ class Board
   def turn_count
     count = 0
     self.cells.each do |cell|
-      count += 1 if cell != " "    #== "X" || cell == "O"
+      count += 1 if cell != " "
     end
     count
   end
