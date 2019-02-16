@@ -32,7 +32,7 @@ class Board
   end
 
   def update(input, player)  # Player class object
-    self.position(input) = player.token
+    #self.position(input) = player.token
   end
 # build #update method represents updating board when player makes a move.
 # #update has two arguments,
@@ -46,7 +46,7 @@ class Board
 
 # #valid_move? will ensure that moves are between 1-9 and not taken.
   def valid_move?(input)
-      self.position(input).between?(1..9) && !self.taken?(input)
+      input.between?(1..9) && !self.taken?(input)
   end
 
 # #turn_count returns how many positions in cells array are filled
