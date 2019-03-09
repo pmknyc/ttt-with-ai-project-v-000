@@ -1,4 +1,4 @@
-class Computer
+class Players::Computer
 
 # meg's work:
 # my Pseudocode: https://github.com/meg-gutshall/ttt-with-ai-project-v-000/blob/master/lib/players/AI_strategy.md
@@ -9,9 +9,9 @@ class Computer
 	three_wins = [1, 3, 7, 9]
 	two_wins = [2, 4, 6, 8]
 
-  # Meg move options
-    @@corner_move = [1, 3, 7, 9].sample.to_s
-    @@edge_move = [2, 4, 6, 8].sample.to_s
-    @@random_move = (1..9).to_a.sample.to_s
-
+#  # Meg move options
+#    @@corner_move = [1, 3, 7, 9].sample.to_s
+#    @@edge_move = [2, 4, 6, 8].sample.to_s
+#    @@random_move = (1..9).to_a.sample.to_s
+#
 end

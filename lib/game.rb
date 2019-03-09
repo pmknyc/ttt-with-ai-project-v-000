@@ -10,7 +10,37 @@ class Game
     @board = board
   end
 
-    ## reader of board made in #initialize
+  def start
+    # Greeting
+    puts "Welcome to Tic Tac Toe!"
+    # display blank board.greet_board; diff from board.display
+    puts "Enter a number for the type of game you want to play."
+    puts "  2 -- two human players"
+    puts "  1 -- one Human vs the Computer"
+    puts "  0 -- the Computer plays itself!"
+    type = gets.strip.to_i
+    case type
+      when 2
+
+      when 1
+
+      when 0
+
+    end
+
+
+
+# board.:  board can print current state
+  def display
+    c = self.cells
+    puts " #{c[0]} | #{c[1]} | #{c[2]} "
+    puts "-----------"
+    puts " #{c[3]} | #{c[4]} | #{c[5]} "
+    puts "-----------"
+    puts " #{c[6]} | #{c[7]} | #{c[8]} "
+  end
+
+    ## reader of board made in #initialize - NOT NEEDED
     #  def board
     #    @board
     #  end
