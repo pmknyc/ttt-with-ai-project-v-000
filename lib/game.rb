@@ -10,23 +10,25 @@ class Game
     @board = board
   end
 
-  def start
-    # Greeting
-    puts "Welcome to Tic Tac Toe!"
-    # display blank board.greet_board; diff from board.display
-    puts "Enter a number for the type of game you want to play."
-    puts "  2 -- two human players"
-    puts "  1 -- one Human vs the Computer"
-    puts "  0 -- the Computer plays itself!"
-    type = gets.strip.to_i
-    case type
-      when 2
+  #def start
+  #  # Greeting
+  #  puts "Welcome to Tic Tac Toe!"
+  #  # display blank board.greet_board; diff from board.display
+  #  puts "Enter a number for the type of game you want to play."
+  #  puts "  2 -- two human players"
+  #  puts "  1 -- one Human vs the Computer"
+  #  puts "  0 -- the Computer plays itself!"
+  #  type = gets.strip.to_i
+  #  case type
+  #    when 2
 
-      when 1
+  #    when 1
 
-      when 0
+  #    when 0
 
-    end
+  # ADD NAME for players -- ask if want to assign NAME
+  #  call Players::Human.player_name
+  #  end
 
 
 
@@ -122,9 +124,29 @@ end
     #   board[index] = token
     #end
 
-    def turn
-      puts "It's your turn, #{self.current_player}!\n Please enter 1 - 9:"
-      input = gets.strip
+  def turn
+    # Call #turn_count to determine if first turn of game
+    # If yes, call  #first_turn
+    # If after first turn, run #later_turns
+    board.turn_count == 0 ? self.first_turn : self.later_turns
+  end
+
+  def first_turn
+    puts "It's your turn, #{self.player_1.token}!"
+      if board.valid_move?(self.player_1.move)
+        puts "That is not a valid move. Please try again."
+        self.player_1.move
+      end
+    board.update(board.position(self.player_1.move), self.player_1)
+  end
+
+  def later_turns
+    until board.valid_move?(self.current_player.move)
+      puts "That is not a valid move. Please try again."
+      # self.player_1.move
+    end
+
+
     #  index = input_to_index(input)
     #    if valid_move?(board,index)
     #        player_move(board,index,current_player(board))

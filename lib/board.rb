@@ -45,7 +45,7 @@ class Board
 
 # Methods below: allow board to  return values based on its state
 
-# #valid_move? will ensure that moves are between 1-9 and not taken.
+# #valid_move? Boolean return; check that moves are between 1-9 and not taken.
   def valid_move?(input)
     input.between?(1,9) && !self.taken?(input)
   end
