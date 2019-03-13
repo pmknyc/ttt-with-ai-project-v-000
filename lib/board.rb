@@ -32,7 +32,7 @@ class Board
   end
 
   def update(input, player)  # Player class object
-    self.cells[input.to_i - 1] = player.token
+    self.cells[input.to_i] = player.token
     # #self.position(input) why this not work in place of self.cells
   end
 # build #update method represents updating board when player makes a move.
