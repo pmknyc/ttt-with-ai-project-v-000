@@ -133,9 +133,10 @@ end
 
   def first_turn
     puts "It's your turn, #{self.player_1.token}!"
-      if board.valid_move?(self.player_1.move)
+      input_first = self.player_1.move
+      if !board.valid_move?(input_first) # if #valid_move false
         puts "That is not a valid move. Please try again."
-        self.player_1.move
+        first_turn
       end
     board.update(board.position(self.player_1.move), self.player_1)
   end
@@ -145,7 +146,7 @@ end
       puts "That is not a valid move. Please try again."
       # self.player_1.move
     end
-
+end
 
     #  index = input_to_index(input)
     #    if valid_move?(board,index)
@@ -153,6 +154,5 @@ end
     #        display_board(board)
     #    else
     #        turn(board)
-    #    end
-    end
+    #    enend
 end # class Game end
