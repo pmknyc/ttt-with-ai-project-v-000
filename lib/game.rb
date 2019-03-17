@@ -125,28 +125,49 @@ end
     #end
 
   def turn
+    move_input = 0
+    if board.turn_count == 0 && !board.valid_move?(move_input)
+        puts "It's your turn, #{self.player_1.token}!"
+        move_input = self.player_1.move
+        move_input
+    end
+    while board.turn_count != 0 && !board.valid_move?(move_input)
+        puts "It's your turn, #{board.current_player}!"  #returns token of current player
+        move_input = self.current_player.move
+        move_input
+    end
+    #if !board.valid_move?(move_input) # if #valid_move false
+    #  puts "That is not a valid move. Please try again."
+    #  first_turn
+    #end
+
+  end
+
+  #  this goes in game.play board.update(board.position(self.player_1.move), self.player_1)
+
+
+  # attempt to write helper methods for #turn
     # Call #turn_count to determine if first turn of game
     # If yes, call  #first_turn
     # If after first turn, run #later_turns
-    board.turn_count == 0 ? self.first_turn : self.later_turns
-  end
+    # board.turn_count == 0 ? self.first_turn : self.later_turns
 
-  def first_turn
-    puts "It's your turn, #{self.player_1.token}!"
-      input_first = self.player_1.move
-      if !board.valid_move?(input_first) # if #valid_move false
-        puts "That is not a valid move. Please try again."
-        first_turn
-      end
-    board.update(board.position(self.player_1.move), self.player_1)
-  end
 
-  def later_turns
-    until board.valid_move?(self.current_player.move)
-      puts "That is not a valid move. Please try again."
-      # self.player_1.move
-    end
-end
+#  def first_turn
+#    puts "It's your turn, #{self.player_1.token}!"
+#      input_first = self.player_1.move
+#      if !board.valid_move?(input_first) # if #valid_move false
+#        puts "That is not a valid move. Please try again."
+#        first_turn
+#      end
+#    board.update(board.position(self.player_1.move), self.player_1)
+#  end
+
+#  def later_turns
+#    until board.valid_move?(self.current_player.move)
+#      puts "That is not a valid move. Please try again."
+#      # self.player_1.move
+#    end
 
     #  index = input_to_index(input)
     #    if valid_move?(board,index)
@@ -155,4 +176,5 @@ end
     #    else
     #        turn(board)
     #    enend
+
 end # class Game end
