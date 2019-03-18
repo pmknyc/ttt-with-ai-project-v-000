@@ -60,12 +60,6 @@ class Board
     count
   end
 
-# current_player reveals token of player whose turn it is
-#   X plays first; when turn count == even num, it's X's turn again
-  def current_player
-    self.turn_count % 2 == 0 ? "X" : "O"
-  end
-
 # #full? returns truthy when board cells entirely
 # occupied with "X" and "O" token strings
   def full?

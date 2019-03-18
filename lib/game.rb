@@ -68,7 +68,7 @@ WIN_COMBINATIONS = [
 ]
 
 def current_player
-  if    board.turn_count % 2 == 0
+  if    board.turn_count == 0 || board.turn_count % 2 == 0
         current_player = self.player_1
   else
         current_player = self.player_2
@@ -125,22 +125,12 @@ end
     #end
 
   def turn
-    move_input = 0
-    if board.turn_count == 0 && !board.valid_move?(move_input)
-        puts "It's your turn, #{self.player_1.token}!"
-        move_input = self.player_1.move
-        move_input
+    puts "\nIt's your turn, #{self.current_player}!"  #returns token of current player
+    move_input = self.current_player.move
+    until board.valid_move?(move_input) # if #valid_move false
+      puts "That is not a valid move. Please try again.\n"
+      self.turn
     end
-    while board.turn_count != 0 && !board.valid_move?(move_input)
-        puts "It's your turn, #{board.current_player}!"  #returns token of current player
-        move_input = self.current_player.move
-        move_input
-    end
-    #if !board.valid_move?(move_input) # if #valid_move false
-    #  puts "That is not a valid move. Please try again."
-    #  first_turn
-    #end
-
   end
 
   #  this goes in game.play board.update(board.position(self.player_1.move), self.player_1)
