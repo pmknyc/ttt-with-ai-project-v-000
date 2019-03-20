@@ -16,15 +16,24 @@ class Board
     @cells = Array.new(9," ")
   end
 
+# #input_integer
+  def input_integer(input)
+    input.to_i
+  end
+
 # #input_index
+  def input_index(input)
+    input_integer(input) - 1
+  end
+
 # #position takes user input string from "1" to "9"
 #   convert to integer & board.cells array index,
 #   look up the board cell value at that array index
+
 # RETURN  player.token value "X" or "O"
   def position(input)
-    @cells[input.to_i - 1]
+    @cells[input_index(input)]
   end
-
 # #taken?
 # RETURN true if individual position is occupied false if not
   def taken?(input)
@@ -33,7 +42,7 @@ class Board
 
 # #valid_move? Boolean return; check that moves are between 1-9 and not taken.
   def valid_move?(input)
-    input.to_i.between?(1,9) && !self.taken?(input)
+    input_integer(input).between?(1,9) && !taken?(input)
   end
 
 # #update represents updating board when player makes a move.
