@@ -1,8 +1,8 @@
 require 'pry'
 
 class Game
-
   attr_accessor :player_1, :player_2, :board
+  attr_reader :token
 
   def initialize(player_1 = Players::Human.new("X"), player_2 = Players::Human.new("O"), board = Board.new)
     @player_1 = player_1
@@ -21,6 +21,7 @@ class Game
   #  type = gets.strip.to_i
   #  case type
   #    when 2
+
   #    when 1
 
   #    when 0
@@ -28,6 +29,31 @@ class Game
   # ADD NAME for players -- ask if want to assign NAME
   #  call Players::Human.player_name
   #  end
+
+
+
+# board.:  board can print current state
+  def display
+    c = self.cells
+    puts " #{c[0]} | #{c[1]} | #{c[2]} "
+    puts "-----------"
+    puts " #{c[3]} | #{c[4]} | #{c[5]} "
+    puts "-----------"
+    puts " #{c[6]} | #{c[7]} | #{c[8]} "
+  end
+
+    ## reader of board made in #initialize - NOT NEEDED
+    #  def board
+    #    @board
+    #  end
+    #
+    #  def player_1
+    #    @player_1
+    #  end
+    #
+    #  def player_2
+    #    @player_2
+    #  end
 
   # Winning cells combinations constant
 WIN_COMBINATIONS = [
@@ -41,18 +67,13 @@ WIN_COMBINATIONS = [
   [2,4,6]  # input 3,5,7 rgt diag
 ]
 
-  def current_player
-    if  board.turn_count == 0 || board.turn_count % 2 == 0
-        current_player = @player_1
-    else
-        current_player = @player_2
-    end
-        current_player
+def current_player
+  if    board.turn_count == 0 || board.turn_count % 2 == 0
+        current_player = self.player_1
+  else
+        current_player = self.player_2
   end
-
-# game is a draw (tied) when board full and no win combo achieved
-def draw?
-  @board.full? && won? == false
+  current_player
 end
 
 # #won? returns the correct winning combination in the case of a win
@@ -64,31 +85,44 @@ end
       board.cells[combo[2]] != " "
     end
     # won? returns winning array if found; or false
-    win_combo != nil ? win_combo : false
+    win_combo == nil ? false : win_combo
   end
 
-# game over if a draw or a win condition met
+  # game tied when board full and no win combo achieved
+  def draw?
+    board.full? && self.won? == false
+  end
+
+  # game over if a draw or a win condition met
   def over?
-    draw? || won? == true
+    self.draw? || self.won? != false
   end
 
   def winner
-    if won? == true
-      return @board.cells[won?[0]]
+    if self.won? != false
+      return board.cells[self.won?[0]]
     else
       nil
     end
   end
 
+
+    ## inserts player's move, a board array index number,
+    ## to X or O token string character
+    #def player_move(board, index, token)
+    #   board[index] = token
+    #end
+
   def turn
     puts "\nIt's your turn, #{current_player}!"  #returns token of current player
     move_input = current_player.move
-      until @board.valid_move?(move_input) # if #valid_move false
+      if  !board.valid_move?(move_input) # if #valid_move false
         puts "That is not a valid move. Please try again.\n"
         turn
+      else
+        board.update(move_input,current_player)
       end
-    board.update
-  end
+    end
 
   def play
     while !over?
@@ -97,10 +131,40 @@ end
 
     if draw?
       puts "Cat's Game!"
-    else
-    #elsif won? != false
-      puts "Congratulations #{winner}!"
+    elsif won? != false
+      puts "Congratulations #{self.winner}!"
     end
   end
+
+  # attempt to write helper methods for #turn
+    # Call #turn_count to determine if first turn of game
+    # If yes, call  #first_turn
+    # If after first turn, run #later_turns
+    # board.turn_count == 0 ? self.first_turn : self.later_turns
+
+
+#  def first_turn
+#    puts "It's your turn, #{self.player_1.token}!"
+#      input_first = self.player_1.move
+#      if !board.valid_move?(input_first) # if #valid_move false
+#        puts "That is not a valid move. Please try again."
+#        first_turn
+#      end
+#    board.update(board.position(self.player_1.move), self.player_1)
+#  end
+
+#  def later_turns
+#    until board.valid_move?(self.current_player.move)
+#      puts "That is not a valid move. Please try again."
+#      # self.player_1.move
+#    end
+
+    #  index = input_to_index(input)
+    #    if valid_move?(board,index)
+    #        player_move(board,index,current_player(board))
+    #        display_board(board)
+    #    else
+    #        turn(board)
+    #    enend
 
 end # class Game end

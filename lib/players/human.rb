@@ -2,9 +2,9 @@ require_relative './players.rb'
 
 class Players::Human
 
-  def move
+  def move(board = [])
     puts "Enter a number from 1 to 9"
-    input = gets.strip.to_i
+    input = gets.strip
     input
   end
 
