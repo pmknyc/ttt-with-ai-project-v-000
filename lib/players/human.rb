@@ -1,4 +1,5 @@
 require_relative './players.rb'
+require_relative '../game.rb'
 
 class Players::Human
 

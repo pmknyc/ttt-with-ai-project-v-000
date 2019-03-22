@@ -2,3 +2,12 @@
 require_relative '../config/environment'
 
 game.start
+
+def instruction_board
+  # c = self.cells
+  puts " 1 | 2 | 3 "
+  puts "-----------"
+  puts " 4 | 5 | 3 "
+  puts "-----------"
+  puts " 7 | 8 | 9 "
+end
