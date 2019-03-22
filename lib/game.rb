@@ -12,22 +12,25 @@ class Game
 
   def start
     #  Greeting
-    puts "Welcome to Tic Tac Toe\n!"
-    puts "Enter a number for the type of game you want to play."
-    puts "  2 -- two human players"
-    puts "  1 -- one Human vs the Computer"
-    puts "  0 -- the Computer plays itself!"
-    type = gets.strip.to_i
+    puts "Welcome to Tic Tac Toe!\n"
+    puts "Enter the type of game you want to play."
+    puts "  hh    -- two human players"
+    puts "  hc    -- one Human vs the Computer"
+    puts "  cc    -- the Computer plays itself!\n"
+    puts "  exit  -- to stop the game."
+    type = gets.strip.downcase
     case type
-      when 2 # game.new with default arguments
-        p "type 2"
-        Game.new
+      when "hh" # game.new with default arguments
+        p "type hh"
+        Game.new.play
                 #  call Players::Human.player_name
                 # ADD NAME for players -- ask if want to assign NAME
-      when 1 # game.new w/ 1 human + 1 computer player arguments
-          human_computer
-      when 0 # game.new w/ 2 computer player arguments
-          computer_computer
+      when "hc" # game.new w/ 1 human + 1 computer player arguments
+          human_computer.play
+      when "cc" # game.new w/ 2 computer player arguments
+          computer_computer.play
+      when "exit"
+
     end
   end
 
@@ -115,6 +118,7 @@ end
     end
 
   def play
+
     while !over?
       turn
     end
