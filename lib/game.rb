@@ -30,7 +30,7 @@ class Game
       when "cc" # game.new w/ 2 computer player arguments
           computer_computer.play
       when "exit"
-
+        "\n  "
     end
   end
 
