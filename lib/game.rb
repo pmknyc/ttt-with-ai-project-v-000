@@ -118,6 +118,15 @@ end
     end
 
   def play
+    #def instruction_board
+      puts "To make a move, enter the number"
+      puts " of the board location as shown below.\n"
+      puts " 1 | 2 | 3 "
+      puts "-----------"
+      puts " 4 | 5 | 6 "
+      puts "-----------"
+      puts " 7 | 8 | 9 \n"
+    #end
 
     while !over?
       turn
