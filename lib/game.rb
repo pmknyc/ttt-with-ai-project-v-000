@@ -23,26 +23,25 @@ class Game
     case type
       when "hh" # game.new with default arguments
         p "type hh"
-        Game.new.play
+        Game.new.instruction_board
                 #  call Players::Human.player_name
                 # ADD NAME for players -- ask if want to assign NAME
       when "hc" # game.new w/ 1 human + 1 computer player arguments
-          human_computer.play
+          human_computer
       when "cc" # game.new w/ 2 computer player arguments
-          computer_computer.play
+          computer_computer
       when "exit"
     end
   end
 
     def human_computer
-      p "in human_computer method"
       Game.new(player_1 = Players::Human.new("X"), player_2 = Players::Computer.new("O"))
       p player_1
       p player_2
+      instruction_board
     end
 
     def computer_computer
-      p "in computer_computer method"
       Game.new(player_1 = Players::Computer.new("X"), player_2 = Players::Computer.new("O"))
       p player_1
       p player_2
@@ -117,24 +116,34 @@ end
       end
     end
 
-  def play
-    def instruction_board
-      puts "To make a move, enter a number\n\n"
-      puts " 1 | 2 | 3 "
-      puts "-----------"
-      puts " 4 | 5 | 6 "
-      puts "-----------"
-      puts " 7 | 8 | 9 \n"
+  def instruction_board
+    puts "During the game use numbers as shown here "
+    puts "To make a move, you'll be prompted to enter a number\n\n"
+    puts "     1 | 2 | 3 "
+    puts "    -----------"
+    puts "     4 | 5 | 6 "
+    puts "    -----------"
+    puts "     7 | 8 | 9 \n\n"
+    puts "When ready to play, press <Enter> "
+    gets.chomp
+    if "\n"
+      play
+    else
+      instruction_board
     end
+  end
 
+  def play
     while !over?
       turn
     end
+
     if draw?
       puts "Cat's Game!"
     else
       puts "Congratulations #{winner}!"
     end
+
   end
 
 end # class Game end

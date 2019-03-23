@@ -1,5 +1,7 @@
 require_relative './players.rb'
-require_relative '../game.rb'
+# require_relative '../game.rb'
+#before I added to require game.rb it didn't run.
+# test this again
 
 class Players::Human
 
