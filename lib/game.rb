@@ -13,11 +13,12 @@ class Game
   def start
     #  Greeting
     puts "Welcome to Tic Tac Toe!\n"
-    puts "Enter the type of game you want to play."
+    puts "What type of game do you want to play?"
     puts "  hh    -- two human players"
     puts "  hc    -- one Human vs the Computer"
     puts "  cc    -- the Computer plays itself!\n"
-    puts "  exit  -- to stop the game."
+    puts "  exit  -- to stop the game.\n"
+    puts "Type your answer then press <Enter>"
     type = gets.strip.downcase
     case type
       when "hh" # game.new with default arguments
@@ -30,7 +31,6 @@ class Game
       when "cc" # game.new w/ 2 computer player arguments
           computer_computer.play
       when "exit"
-        "\n  "
     end
   end
 
@@ -118,15 +118,14 @@ end
     end
 
   def play
-    #def instruction_board
-      puts "To make a move, enter the number"
-      puts " of the board location as shown below.\n"
+    def instruction_board
+      puts "To make a move, enter a number\n\n"
       puts " 1 | 2 | 3 "
       puts "-----------"
       puts " 4 | 5 | 6 "
       puts "-----------"
       puts " 7 | 8 | 9 \n"
-    #end
+    end
 
     while !over?
       turn
