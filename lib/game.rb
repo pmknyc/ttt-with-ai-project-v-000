@@ -12,13 +12,8 @@ class Game
 
   def start
     #  Greeting
-    puts "Welcome to Tic Tac Toe!\n"
-    puts "What type of game do you want to play?"
-    puts "  hh    -- two human players"
-    puts "  hc    -- one Human vs the Computer"
-    puts "  cc    -- the Computer plays itself!\n"
-    puts "  exit  -- to stop the game.\n"
-    puts "Type your answer then press <Enter>"
+
+
     type = gets.strip.downcase
     case type
       when "hh" # game.new with default arguments
@@ -47,7 +42,7 @@ class Game
       p player_2
     end
 
-  # Winning cells combinations constant
+# Winning cells combinations constant
 WIN_COMBINATIONS = [
   [0,1,2], # input 1,2,3 Top row
   [3,4,5], # input 4,5,6 Mid row

@@ -20,13 +20,18 @@ class Players::Computer
 		best_move = [5] # 4 of 8 win combos
 		better_move = [1, 3, 7, 9] # 3 of 8 win combos
 		good_move = [2, 4, 6, 8] # 2 of 8 win combos
-		move_options = [best_move, better_move,  good_move]
+		move_options = [best_move, better_move, good_move]
 		p move_options
 	end
 
+# Before each turn, decide type of move to make:
+# win_move = offensive move trying to win
+# keep track of my_combos of plays and compare with WIN_COMBINATIONS
+# my_combos.detect if any contain 2 of 3 elements in any WIN_COMBINATIONS
+# if detect finds a hit, move is the open cell in that combos
 
-
-  end
+# block_move = defensive move to block other player because
+#			other player has 2 of 3 in any WIN_COMBINATION
 
 
 # meg's work:
