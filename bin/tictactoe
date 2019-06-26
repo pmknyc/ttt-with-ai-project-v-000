@@ -4,13 +4,4 @@ require_relative "../lib/game.rb"
 
 game = Game.new
 
-# Welcome message to start game
-  puts "Welcome to Tic Tac Toe!\n"
-  puts "What type of game do you want to play?"
-  puts "  hh    -- two human players"
-  puts "  hc    -- one Human vs the Computer"
-  puts "  cc    -- the Computer plays itself!\n"
-  puts "  exit  -- to stop the game.\n"
-  puts "Type your answer then press <Enter>"
-
 game.start

@@ -11,36 +11,40 @@ class Board
     reset!
   end
 
-# #reset! method can reset the state of the cells to a pre-game empty board
+# reset! method can reset the state of the cells to a pre-game empty board
   def reset!
     @cells = Array.new(9," ")
   end
 
-# #input_integer
-  def input_integer(input)
-    input.to_i
+# input_index: convert user input to array index
+  def input_index(input)
+      input_integer(input) - 1
   end
 
-# #input_index
-  def input_index(input)
-    input_integer(input) - 1
+  # input_integer: helper method
+  def input_integer(input)
+    input.to_i #user string input to integer
+              # so that #input_index can convert it to array index
   end
 
 # #position takes user input string from "1" to "9"
 #   convert to integer & board.cells array index,
 #   look up the board cell value at that array index
 
-# RETURN  player.token value "X" or "O"
-  def position(input)
-    @cells[input_index(input)]
-  end
-# #taken?
-# RETURN true if individual position is occupied false if not
+# taken?
+# if player's chosen move position is occupied: true, false if not
   def taken?(input)
     position(input) != " "
   end
 
-# #valid_move? Boolean return; check that moves are between 1-9 and not taken.
+# position - helper method for #taken?
+  # RETURN  player.token value "X" or "O"
+  def position(input)
+    @cells[input_index(input)]
+  end
+
+# valid_move? 
+    #check that moves are between 1-9 and not taken; Boolean return
   def valid_move?(input)
     input_integer(input).between?(1,9) && !taken?(input)
   end
@@ -70,9 +74,7 @@ class Board
 # #full? returns truthy when board cells entirely
 # occupied with "X" and "O" token strings
   def full?
-    self.cells.all? do |cell|
-      cell == "X" || cell == "O"
-    end
+    self.cells.all?{|cell| cell == "X" || cell == "O"}
   end
 
 # #display:  board can print current state
