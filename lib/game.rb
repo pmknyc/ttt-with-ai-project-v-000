@@ -13,10 +13,11 @@ class Game
   def start
     # Welcome message for first game
     puts "Welcome to Tic Tac Toe!\n"
-    puts "What type of game do you want to play?"
+    board.display
+    puts "What type of game do you want to play?\n"
     puts "  hh  -- two human players"
     puts "  hc  -- one Human vs the Computer"
-    puts "  cc  -- the Computer plays itself!\n"
+    puts "  cc  -- the Computer plays itself!"
     puts "  oo  -- to stop the game.\n"
     puts "Type your answer then press <Enter> \n"
     game_type
@@ -25,46 +26,42 @@ class Game
   def game_type
     type = gets.strip.downcase
     case type
-      when "hh" # game.new called in executable
+      when "hh" # game.new called by executable: ./bin/tictactoe 
                 # sets up default players: 2 humans, player_1 is "X"
-        instruction_board # inform players which numbers call which cells on board
+        "\n\n"
+        instruction_board # show players board w/ numbered cells
                 # ??? call Players::Human.player_name
                 # ??? ADD NAME for players -- ask if want to assign NAME
       when "hc" 
-          human_computer #method calls game.new w/ 1 human + 1 computer player
+          "\n\n"
+          human_computer #calls game.new w/ 1 human + 1 computer player
       when "cc" 
-          computer_computer # method calls game.new w/ 2 computer players
+          "\n\n"
+          computer_computer #calls game.new w/ 2 computer players
       when "oo"
           puts "Goodbye, thanks for playing"
           puts "\n\n"
+          exit
+      else
+          puts "I don't understand that. Please try again"
+          game_type
     end
   end
 
   def human_computer
     Game.new(player_1 = Players::Human.new("X"), player_2 = Players::Computer.new("O"))
-    p player_1
-    p player_2
+    #p player_1
+    #p player_2
     instruction_board
   end
 
   def computer_computer
     Game.new(player_1 = Players::Computer.new("X"), player_2 = Players::Computer.new("O"))
-    p player_1
-    p player_2
+    #p player_1
+    #p player_2
     play
   end
 
-  # Winning cells combinations constant
-  WIN_COMBINATIONS = [
-    [0,1,2], # input 1,2,3 Top row
-    [3,4,5], # input 4,5,6 Mid row
-    [6,7,8], # input 7,8,9 Bot row
-    [0,3,6], # input 1,4,7 Lft col
-    [1,4,7], # input 2,5,8 mid col
-    [2,5,8], # input 3,6,9 rgt col
-    [0,4,8], # input 1,5,9 lft diag
-    [2,4,6]  # input 3,5,7 rgt diag
-  ]
 
   def current_player
     if    board.turn_count == 0 || board.turn_count % 2 == 0
@@ -75,41 +72,12 @@ class Game
     current_player
   end
 
-# #won? returns the correct winning combination in the case of a win
-  def won?
-    # iteration returns 3 winning cells as win_combo array; or nil
-    win_combo = WIN_COMBINATIONS.detect do |combo|
-      board.cells[combo[0]] == board.cells[combo[1]] &&
-      board.cells[combo[1]] == board.cells[combo[2]] &&
-      board.cells[combo[2]] != " "
-    end
-    # won? returns winning array if found; or false
-    win_combo == nil ? false : win_combo
-  end
-
-  # game tied when board full and no win combo achieved
-  def draw?
-    board.full? && !won? #  == false
-  end
-
-  # game over if a draw or a win condition met
-  def over?
-    draw? || won? != false
-  end
-
-  def winner
-    if won? != false
-      return board.cells[self.won?[0]]
-    else
-      nil
-    end
-  end
-
+  
   def turn
     move_input = current_player.move
       if !board.valid_move?(move_input) # if player move not valid
         # notify player to choose different move
-        puts "That is not a valid move. Please try again.\n"
+        puts "\n That is not a valid move. Please try again.\n"
         turn
       else
         board.update(move_input,current_player)
@@ -133,6 +101,66 @@ class Game
       instruction_board
     end
   end
+  
+  def play
+    while !over?
+      turn
+    else
+      game_result
+    end
+  end 
+
+    # Winning board combinations constant
+    WIN_COMBINATIONS = [
+      [0,1,2], # input 1,2,3 Top row
+      [3,4,5], # input 4,5,6 Mid row
+      [6,7,8], # input 7,8,9 Bot row
+      [0,3,6], # input 1,4,7 Lft col
+      [1,4,7], # input 2,5,8 mid col
+      [2,5,8], # input 3,6,9 rgt col
+      [0,4,8], # input 1,5,9 lft diag
+      [2,4,6]  # input 3,5,7 rgt diag
+    ]
+  # game over if a draw or a win condition is TRUE
+  def over?
+    draw? || won? != false
+  end
+
+  # game tied when board full and no win combo achieved
+  def draw?
+    board.full? && !won? 
+  end
+  
+  # #won? returns array of winning board cells if found;
+  #       or FALSE if game not yet won
+  def won?
+    # iteration returns 3 winning cells as win_combo array; or nil
+    win_combo = WIN_COMBINATIONS.detect do |combo|
+      board.cells[combo[0]] == board.cells[combo[1]] &&
+      board.cells[combo[1]] == board.cells[combo[2]] &&
+      board.cells[combo[2]] != " "
+    end
+    win_combo == nil ? false : win_combo
+  end
+
+  # #winner returns winning player as "X" or "O" 
+  def winner  
+    if won? != false #first check if game was won
+      return board.cells[self.won?[0]] 
+          #get winner token from first cell in win combo array
+    else
+      nil
+    end
+  end
+
+  def game_result
+    if draw?
+      puts "Cat's Game! \n\n"
+    else
+      puts "Congratulations #{winner}! \n\n"
+      play_again
+    end
+  end
 
   def play_again
     puts "Want to play again? Enter 'play'."
@@ -144,23 +172,7 @@ class Game
     elsif again == 'exit'
       exit
     else 
-      puts "I didn't understand. Please try again."
-      play_again
-    end
-  end
-
-  def play
-    while !over?
-      turn
-    end
-    check_draw
-  end 
-
-  def check_draw
-    if draw?
-      puts "Cat's Game! \n"
-    else
-      puts "Congratulations #{winner}! \n\n"
+      puts "\n\nI didn't understand. Please try again."
       play_again
     end
   end

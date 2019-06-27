@@ -41,7 +41,6 @@ class Board
     position(input) != " "
   end
 
-
 # valid_move? 
     #check that moves are between 1-9 and not taken; Boolean return
   def valid_move?(input)
@@ -51,7 +50,7 @@ class Board
 # #update adds player moves to board object
 #   called by game.turn to update after every play in game
 #   receives 2 args:  player.move_input (1 to 9 as string)
-                      current_player
+#                     current_player
 # first is position the user wants to occupy in the form of 1-9 strings
 # that you will need to convert to the board cells' array index,
 # along with the player object making the move.
@@ -59,7 +58,8 @@ class Board
 # by calling the`#token method on the player.
 
   def update(input, player)  # Player class object
-    @cells[input.to_i - 1] = player.token
+    self.position(input)
+    #@cells[input.to_i - 1] = player.token
   end
 
 # turn_count tracks number of turns played in game
@@ -67,9 +67,7 @@ class Board
 # RETURN is count of filled board.cells AKA turn_count
   def turn_count
     count = 0
-    self.cells.each do |cell|
-      count += 1 if cell != " "
-    end
+    self.cells.each{|cell| count += 1 if cell != " "}
     count
   end
 
