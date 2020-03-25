@@ -14,6 +14,7 @@ module Players
   end # class Human end
 
   class Computer < Player
+
   end
 
 end # module Players end

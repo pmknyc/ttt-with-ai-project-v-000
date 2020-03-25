@@ -12,8 +12,6 @@ class Game
 
   def start
     #  Greeting
-
-
     type = gets.strip.downcase
     case type
       when "hh" # game.new with default arguments
@@ -129,16 +127,13 @@ end
   end
 
   def play
-    while !over?
+    if !over?
       turn
-    end
-
-    if draw?
+    elsif draw?
       puts "Cat's Game!"
     else
       puts "Congratulations #{winner}!"
     end
-
   end
 
 end # class Game end
