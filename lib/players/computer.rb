@@ -1,6 +1,7 @@
 require_relative './players.rb'
 
-class Players::Computer
+module Players
+	class Computer < Player 
 
 # numbers in player perspective of board
 #	@@best_move = [5] # 4 of 8 win combos
@@ -16,7 +17,7 @@ class Players::Computer
 #        puts "That is not a valid move. Please try again.\n"
 #        turn
 	def move(board = [])
-    p "in Computer move method"
+p "computer.move method"
 		best_move = [5] # 4 of 8 win combos
 		better_move = [1, 3, 7, 9] # 3 of 8 win combos
 		good_move = [2, 4, 6, 8] # 2 of 8 win combos
@@ -43,4 +44,6 @@ class Players::Computer
 #    @@edge_move = [2, 4, 6, 8].sample.to_s
 #    @@random_move = (1..9).to_a.sample.to_s
 #
+	end
 end
+

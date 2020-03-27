@@ -58,8 +58,7 @@ class Board
 # by calling the`#token method on the player.
 
   def update(input, player)  # Player class object
-    self.position(input)
-    #@cells[input.to_i - 1] = player.token
+    @cells[input_index(input)] = player.token
   end
 
 # turn_count tracks number of turns played in game

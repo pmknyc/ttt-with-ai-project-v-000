@@ -4,12 +4,12 @@ module Players
 
     attr_accessor :name
 
-  # Let users opt to give a name to players
-    def name_player(name, token)
-      player.name = name if player.token == token
-      p player.name
-      player.name
-    end
+#  # Let users opt to give a name to players
+#    def name_player(name, token)
+#      player.name = name if player.token == token
+#      p player.name
+#      player.name
+#    end
 
   end # class Human end
 

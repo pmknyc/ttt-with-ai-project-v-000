@@ -14,12 +14,12 @@ class Game
     # Welcome message for first game
     puts "Welcome to Tic Tac Toe!\n"
     board.display
-    puts "What type of game do you want to play?\n"
+    puts "\nWhat type of game do you want to play?\n"
     puts "  hh  -- two human players"
     puts "  hc  -- one Human vs the Computer"
     puts "  cc  -- the Computer plays itself!"
     puts "  oo  -- to stop the game.\n"
-    puts "Type your answer then press <Enter> \n"
+    puts "\nType your answer then press <Enter> \n"
     game_type
   end
   
@@ -62,7 +62,6 @@ class Game
     play
   end
 
-
   def current_player
     if    board.turn_count == 0 || board.turn_count % 2 == 0
           current_player = self.player_1
@@ -72,11 +71,9 @@ class Game
     current_player
   end
 
-  
   def turn
     move_input = current_player.move
-      if !board.valid_move?(move_input) # if player move not valid
-        # notify player to choose different move
+      if !board.valid_move?(move_input) 
         puts "\n That is not a valid move. Please try again.\n"
         turn
       else
@@ -105,10 +102,24 @@ class Game
   def play
     while !over?
       turn
-    else
-      game_result
     end
+
+    if draw?
+       puts "Cat's Game!"
+    else
+      puts "Congratulations #{winner}!"
+    end      # game_result use as separate method if not testing with learn.co
   end 
+
+  # def game_result
+  #   if draw?
+  #     puts "\nCat's Game! \n\n"
+  #   else
+  #     puts "\nCongratulations #{winner}! \n"
+  #       # play_again method raises error in learn.co tests
+  #   end
+  # end
+
 
     # Winning board combinations constant
     WIN_COMBINATIONS = [
@@ -153,28 +164,21 @@ class Game
     end
   end
 
-  def game_result
-    if draw?
-      puts "Cat's Game! \n\n"
-    else
-      puts "Congratulations #{winner}! \n\n"
-      play_again
-    end
-  end
-
-  def play_again
-    puts "Want to play again? Enter 'play'."
-    puts "If not, enter 'exit'. \n"
-    again = gets.strip.downcase
-    
-    if again == 'play'
-      system './bin/tictactoe'
-    elsif again == 'exit'
-      exit
-    else 
-      puts "\n\nI didn't understand. Please try again."
-      play_again
-    end
-  end
+    # Add play_again method when not have to pass learn.co tests!
+  # def play_again
+  #   puts "\nWant to play again? "
+  #   puts "If yes, enter 'play'."
+  #   puts "If not, enter 'exit'.\n\n"
+  #   again = gets.strip.downcase
+  #   
+  #   if again == 'play'
+  #     system './bin/tictactoe'
+  #   elsif again == 'exit'
+  #     exit
+  #   else 
+  #     puts "\n\nI didn't understand. Please try again."
+  #     play_again
+  #   end
+  # end
 
 end # class Game end
